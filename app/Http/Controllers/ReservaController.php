@@ -6,6 +6,7 @@ use App\Models\Cliente;
 use App\Models\Reserva;
 use App\Models\Estrutura;
 use PDF;
+use DateTime;
 
 use Illuminate\Http\Request;
 
@@ -48,10 +49,39 @@ class ReservaController extends Controller
             'salao_comercial_id' => 'required|exists:salaos,id',
             'cliente_id' => 'required|exists:clientes,id',
             'coffe_break' => 'nullable|string',
+            'numero_participantes' => 'required|integer',
         ]);
+
+        $salao = Salao::find($validatedData['salao_comercial_id']);
+
+        if ($salao->limite_participantes < $validatedData['numero_participantes']) {
+            return back()->withErrors(['numero_participantes' => 'Número de participantes excede o limite permitido.']);
+        }
 
         $temRecepcao = $request->has('tem_recepcao') ? 1 : 0;
         $temCoffeBreak = $request->has('tem_coffe_break') ? 1 : 0;
+
+        $horarioInicial = new DateTime($validatedData['horario_inicial']);
+        $horarioFinal = new DateTime($validatedData['horario_final']);
+
+        $horarioInicialSalao = new DateTime($salao->horario_inicial);
+        $horarioFinalSalao = new DateTime($salao->horario_final);
+        
+        if ($horarioInicial->format('H:i:s') < $horarioInicialSalao->format('H:i:s')) {
+            return back()->withErrors(['horario_inicial' => 'Horário fora do intervalo de funcionamento.']);
+        }
+        if ($horarioFinal->format('H:i:s') > $horarioFinalSalao->format('H:i:s')) {
+            return back()->withErrors(['horario_final' => $horarioFinal]);
+        }
+
+        $reservasSobreposicao = Reserva::where('salao_comercial_id', $salao->id)
+        ->where('horario_final', '>=', $horarioInicial->modify('-1 hour'))
+        ->where('horario_inicial', '<=', $horarioFinal->modify('+1 hour'))
+        ->get();
+
+        if (!$reservasSobreposicao->isEmpty()) {
+            return back()->withErrors(['horario_inicial' => 'Horário indisponivel.']);
+        }
 
         $data = new Reserva([
             'valor' => $validatedData['valor'],

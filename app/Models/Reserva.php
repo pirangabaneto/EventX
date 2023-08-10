@@ -18,6 +18,7 @@ class Reserva extends Model
         'tem_recepcao',
         'tem_coffe_break',
         'coffe_break',
+        'numero_participantes',
     ];
 
     public function salao()

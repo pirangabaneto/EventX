@@ -119,6 +119,16 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="numero_participantes" class="form-label">{{ __('Número de Participantes') }}</label>
+                            <input id="numero_participantes" type="number" class="form-control @error('numero_participantes') is-invalid @enderror" name="numero_participantes" value="{{ old('numero_participantes') }}">
+                            @error('numero_participantes')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label for="cliente_id" class="form-label">{{ __('Cliente') }}</label>
                             <select id="cliente_id" class="form-select @error('cliente_id') is-invalid @enderror" name="cliente_id" required>
                                 @foreach ($clientes as $cliente)
