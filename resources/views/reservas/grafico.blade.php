@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Ocupação do Salão Comercial ao Longo do Tempo') }}</div>
+                <div class="card-header">{{ __('Ocupação dos Salões Comerciais ao Longo do Tempo') }}</div>
 
                 <div class="card-body">
                     <canvas id="occupancyChart"></canvas>

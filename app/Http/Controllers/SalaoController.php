@@ -11,7 +11,7 @@ class SalaoController extends Controller
 {
     public function index()
     {
-        $saloes = Salao::all(); // Buscar todos os salões
+        $saloes = Salao::all(); 
 
         return view('saloes.index', compact('saloes'));
     }
@@ -20,7 +20,6 @@ class SalaoController extends Controller
     {
         return view('saloes.create');
     }
-    // app/Http/Controllers/SalaoComercialController.php
     
     public function store(Request $request)
     {

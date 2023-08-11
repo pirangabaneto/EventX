@@ -10,7 +10,7 @@ class ClienteController extends Controller
 
     public function index()
     {
-        $clientes = Cliente::all(); // Importe o modelo Cliente no início do arquivo
+        $clientes = Cliente::all();
 
         return view('clientes.index', compact('clientes'));
     }
@@ -28,6 +28,6 @@ public function store(Request $request)
 
     Cliente::create($data);
     
-    return redirect()->route('home'); 
+    return redirect()->route('clientes.index'); 
 }
 }

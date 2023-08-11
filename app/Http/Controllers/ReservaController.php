@@ -102,7 +102,7 @@ class ReservaController extends Controller
             $data->estruturas()->sync($estruturasAdicionais);
         }
 
-        return redirect()->route('reservas.create')->with('success', 'Reserva realizada com sucesso!');
+        return redirect()->route('reservas.index')->with('success', 'Reserva realizada com sucesso!');
     }
 
     public function generatePDF($id)
@@ -123,15 +123,11 @@ class ReservaController extends Controller
 
     public function grafico()
     {
-        // Busque todas as reservas do banco de dados
         $reservas = Reserva::all();
 
-        // Inicialize o array $occupancyData
         $occupancyData = [];
 
-        // Preencha o array $occupancyData com as colunas horario_inicial e horario_final
         foreach ($reservas as $reserva) {
-            // Converta as datas para o formato desejado (você pode ajustar isso conforme necessário)
             $inicio = date('Y-m-d', strtotime($reserva->horario_inicial));
             $fim = date('Y-m-d', strtotime($reserva->horario_final));
 

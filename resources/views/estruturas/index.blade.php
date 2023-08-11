@@ -12,7 +12,6 @@
                 <th>É Adicional</th>
                 <th>É Comum</th>
                 <th>Salão</th>
-                <!-- Outras colunas -->
             </tr>
         </thead>
         <tbody>
@@ -24,7 +23,6 @@
                     <td>{{ $estrutura->is_adicional ? 'Sim' : 'Não' }}</td>
                     <td>{{ $estrutura->is_comum ? 'Sim' : 'Não' }}</td>
                     <td>{{ $estrutura->salao->nome }}</td>
-                    <!-- Outras colunas -->
                 </tr>
             @endforeach
         </tbody>

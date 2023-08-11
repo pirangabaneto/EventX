@@ -1,4 +1,4 @@
-<!-- resources/views/saloes_comerciais/create.blade.php -->
+
 @extends('layouts.app')
 
 @section('content')
