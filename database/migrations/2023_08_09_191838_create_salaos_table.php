@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('endereco');
             $table->string('telefone');
             $table->integer('limite_participantes');
-            $table->time('horario_inicial')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->time('horario_final')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->time('horario_inicial')->default('00:00:00');
+            $table->time('horario_final')->default('00:00:00');
             
             $table->timestamps();
         });
